@@ -1,0 +1,57 @@
+﻿@model List<CGenius.Models.Produto>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+}
+
+<div class="container">
+    <h1>Lista de Produtos</h1>
+
+    <form asp-action="BuscarPorId" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="id" placeholder="Buscar por ID" aria-label="Buscar por ID">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="CriarProduto" class="btn btn-primary">Adicionar Novo Produto</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in Model)
+            {
+                <tr>
+                    <td>@produto.Id</td>
+                    <td>@produto.NomeProduto</td>
+                    <td>@produto.DescricaoProduto</td>
+                    <td>@produto.ValorProduto</td>
+                    <td>
+                        <a asp-action="ExibirProdutos" asp-route-id="@produto.Id" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeletarProduto" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este produto?');">
+                            <input type="hidden" name="id" value="@produto.Id" />
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿@model CGenius.Models.Produto
+
+@{
+    ViewData["Title"] = "Cadastrar Produto";
+}
+
+<h1>Cadastrar Produto</h1>
+
+<div class="container">
+    <form asp-action="CadastrarProduto" method="post">
+        <div class="form-group">
+            <label asp-for="NomeProduto" class="control-label"></label>
+            <input asp-for="NomeProduto" class="form-control" />
+            <span asp-validation-for="NomeProduto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DescricaoProduto" class="control-label"></label>
+            <input asp-for="DescricaoProduto" class="form-control" />
+            <span asp-validation-for="DescricaoProduto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ValorProduto" class="control-label"></label>
+            <input asp-for="ValorProduto" class="form-control" />
+            <span asp-validation-for="ValorProduto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="ListarProdutos">Voltar para a Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,60 @@
+﻿@model List<CGenius.Models.ScriptVendas>
+
+@{
+    ViewData["Title"] = "Lista de Scripts de Vendas";
+}
+
+<div class="container">
+    <h1>Lista de Scripts de Vendas</h1>
+
+    <form asp-action="BuscarPorId" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="id" placeholder="Buscar por ID" aria-label="Buscar por ID">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="CriarScript" class="btn btn-primary">Adicionar Novo Script de Vendas</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Compra</th>
+                <th>ID Produto</th>
+                <th>ID Chamada</th>
+                <th>CPF Cliente</th>
+                <th>Descrição do Script</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var script in Model)
+            {
+                <tr>
+                    <td>@script.Id</td>
+                    <td>@script.IdCompra</td>
+                    <td>@script.IdProduto</td>
+                    <td>@script.IdChamada</td>
+                    <td>@script.CpfCliente</td>
+                    <td>@script.DescricaoScript</td>
+                    <td>
+                        <a asp-action="ExibirScript" asp-route-id="@script.Id" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeletarScript" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este script?');">
+                            <input type="hidden" name="id" value="@script.Id" />
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

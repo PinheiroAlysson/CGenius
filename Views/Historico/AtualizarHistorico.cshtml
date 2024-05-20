@@ -1,0 +1,42 @@
+﻿@model CGenius.Models.Historico
+
+@{
+    ViewData["Title"] = "Atualizar Histórico";
+}
+
+<h1>Atualizar Histórico</h1>
+
+<form asp-action="AtualizarHistorico" method="post">
+    <div class="form-group">
+        <label asp-for="Id" class="control-label"></label>
+        <input asp-for="Id" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="IdProduto" class="control-label"></label>
+        <input asp-for="IdProduto" class="form-control" />
+        <span asp-validation-for="IdProduto" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CpfCliente" class="control-label"></label>
+        <input asp-for="CpfCliente" class="form-control" />
+        <span asp-validation-for="CpfCliente" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataCompra" class="control-label"></label>
+        <input asp-for="DataCompra" class="form-control" />
+        <span asp-validation-for="DataCompra" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Atualizar" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="ListarHistoricos">Voltar para a Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

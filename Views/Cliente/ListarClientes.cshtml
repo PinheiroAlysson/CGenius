@@ -1,0 +1,63 @@
+﻿@model List<CGenius.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Lista de Clientes";
+}
+
+<div class="container">
+    <h1>Lista de Clientes</h1>
+
+    <form asp-action="BuscarPorCpf" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="cpf" placeholder="Buscar por CPF" aria-label="Buscar por CPF">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="CriarCliente" class="btn btn-primary">Adicionar Novo Cliente</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Preferência de Contato</th>
+                <th>Data de Nascimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.NomeCliente</td>
+                    <td>@cliente.CpfCliente</td>
+                    <td>@cliente.Telefone</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.PreferenciaContato</td>
+                    <td>@cliente.DtNascimento.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="EditarPorId" asp-route-id="@cliente.Id" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeletarCliente" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este cliente?');">
+                            <input type="hidden" name="id" value="@cliente.Id" />
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

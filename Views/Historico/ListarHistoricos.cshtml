@@ -1,0 +1,56 @@
+﻿@model List<CGenius.Models.Historico>
+
+@{
+    ViewData["Title"] = "Lista de Históricos";
+}
+
+<div class="container">
+    <h1>Lista de Históricos</h1>
+
+    <form asp-action="BuscarPorId" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="id" placeholder="Buscar por ID" aria-label="Buscar por ID">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="CriarHistorico" class="btn btn-primary">Adicionar Novo Histórico</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Produto</th>
+                <th>CPF Cliente</th>
+                <th>Data Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var historico in Model)
+            {
+                <tr>
+                    <td>@historico.Id</td>
+                    <td>@historico.IdProduto</td>
+                    <td>@historico.CpfCliente</td>
+                    <td>@historico.DataCompra</td>
+                    <td>
+                        <a asp-action="ExibirHistorico" asp-route-id="@historico.Id" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeletarHistorico" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este script?');">
+                            <input type="hidden" name="id" value="@historico.Id" />
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

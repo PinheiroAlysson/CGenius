@@ -1,0 +1,58 @@
+﻿@model List<CGenius.Models.Atendente>
+
+@{
+    ViewData["Title"] = "Lista de Atendentes";
+}
+
+<div class="container">
+    <h1>Lista de Atendentes</h1>
+
+
+    <form asp-action="BuscarPorCpf" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="cpf" placeholder="Buscar por CPF" aria-label="Buscar por CPF">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="CriarAtendente" class="btn btn-primary">Adicionar Novo Atendente</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Setor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var atendente in Model)
+            {
+                <tr>
+                    <td>@atendente.Id</td>
+                    <td>@atendente.NomeAtendente</td>
+                    <td>@atendente.Cpf</td>
+                    <td>@atendente.Setor</td>
+
+                    <td>
+                        <a asp-action="EditarPorId" asp-route-id="@atendente.Id" class="btn btn-warning">Editar</a>
+                        <form asp-action="DeletarAtendente" method="post" onsubmit="return confirm('Tem certeza que deseja deletar este script?');">
+                            <input type="hidden" name="id" value="@atendente.Id" />
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

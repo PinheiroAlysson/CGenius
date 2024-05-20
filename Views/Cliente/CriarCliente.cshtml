@@ -1,0 +1,53 @@
+﻿@model CGenius.Models.Cliente
+
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+
+<h1>Cadastrar Cliente</h1>
+
+<form asp-action="CadastrarCliente" method="post">
+    <div class="form-group">
+        <label asp-for="NomeCliente" class="control-label"></label>
+        <input asp-for="NomeCliente" class="form-control" />
+        <span asp-validation-for="NomeCliente" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CpfCliente" class="control-label"></label>
+        <input asp-for="CpfCliente" class="form-control" />
+        <span asp-validation-for="CpfCliente" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefone" class="control-label"></label>
+        <input asp-for="Telefone" class="form-control" />
+        <span asp-validation-for="Telefone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PreferenciaContato" class="control-label"></label>
+        <input asp-for="PreferenciaContato" class="form-control" />
+        <span asp-validation-for="PreferenciaContato" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DtNascimento" class="control-label"></label>
+        <input asp-for="DtNascimento" class="form-control" type="date" />
+        <span asp-validation-for="DtNascimento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Criar" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="ListarClientes">Voltar para a Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
